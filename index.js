@@ -64,21 +64,16 @@ window.onload = function () {
             return data.json();
         })
         .then((objectData) => {
-            dataForTable = objectData;
-            let ApiobjectData = dataForTable.find((item, i) => i == 0);
-            if (ApiobjectData) {
+            if (objectData.length) {
                 editId = 1;
-                // onload first row show  in edit details
-
+                dataForTable = objectData;
                 buildTable(dataForTable);
 
-                iName.value = ApiobjectData.name;
+                iName.value = objectData[0].name;
 
-                iEmail.value = ApiobjectData.email;
+                iEmail.value = objectData[0].email;
 
-                textarea.value = ApiobjectData.address.city;
-            } else {
-                alert("Data not a found");
+                textarea.value = objectData[0].address.city;
             }
         });
 };

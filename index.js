@@ -217,11 +217,11 @@ function updateValue() {
         EditvalidEmail("iEmail") &&
         EditvalidAddress("textarea");
     if (Input) {
-        const foundObj = dataForTable.find((item, i) => item.id == editId);
+        const EditdataObj = dataForTable.find((item, i) => item.id == editId);
 
-        foundObj.name = document.getElementById("iName").value;
-        foundObj.email = document.getElementById("iEmail").value;
-        foundObj.address.city = document.getElementById("textarea").value;
+        EditdataObj.name = document.getElementById("iName").value;
+        EditdataObj.email = document.getElementById("iEmail").value;
+        EditdataObj.address.city = document.getElementById("textarea").value;
 
         buildTable(dataForTable);
     } else {

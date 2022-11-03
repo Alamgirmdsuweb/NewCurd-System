@@ -65,18 +65,18 @@ window.onload = function () {
         })
         .then((objectData) => {
             dataForTable = objectData;
-            let Edit = dataForTable.find((item, i) => i == 0);
-            if (Edit) {
+            let ApiobjectData = dataForTable.find((item, i) => i == 0);
+            if (ApiobjectData) {
                 editId = 1;
                 // onload first row show  in edit details
 
                 buildTable(dataForTable);
 
-                iName.value = Edit.name;
+                iName.value = ApiobjectData.name;
 
-                iEmail.value = Edit.email;
+                iEmail.value = ApiobjectData.email;
 
-                textarea.value = Edit.address.city;
+                textarea.value = ApiobjectData.address.city;
             } else {
                 alert("Data not a found");
             }
@@ -130,9 +130,9 @@ function Save() {
 
                 AddFieldClear();
 
-                let editDataSet = dataForTable.find((item, i) => i == 0);
-
                 // create  value add id Edit details
+
+                let editDataSet = dataForTable.find((item, i) => i == 0);
                 iName.value = editDataSet.name;
 
                 iEmail.value = editDataSet.email;
@@ -170,9 +170,7 @@ function deletConfirm() {
     dltPupup.classList.remove("Modal1");
 
     dataForTable = newValue;
-    let onEditSelect = newValue.find((item, i) => {
-        return i == 0;
-    });
+    let onEditSelect = newValue.find((item, i) => i == 0);
 
     if (onEditSelect) {
         iName.value = onEditSelect.name;
@@ -198,7 +196,7 @@ function removeIcon() {
 }
 
 function editbtn(id) {
-    const foundObj = dataForTable.find((item) => item.id == id);
+    const foundObj = dataForTable.find((item, i) => item.id == id);
 
     editId = id;
 
@@ -207,7 +205,7 @@ function editbtn(id) {
     iEmail.value = foundObj.email;
 
     textarea.value = foundObj.address.city;
-        EditvalidName("iName") &&
+    EditvalidName("iName") &&
         EditvalidEmail("iEmail") &&
         EditvalidAddress("textarea");
 }
@@ -241,7 +239,7 @@ function updateValue() {
 // Reset table
 
 function ResetValue() {
-    const res = dataForTable.find((item) => item.id == editId);
+    const res = dataForTable.find((item, i) => item.id == editId);
 
     iName.value = res.name;
 

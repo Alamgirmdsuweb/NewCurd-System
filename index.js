@@ -34,8 +34,6 @@ const textArea = document.getElementById("inputField");
 
 let url = "https://jsonplaceholder.typicode.com/users";
 
-// let arrayFromApi = [];
-// console.log("arrayFromApi", arrayFromApi);
 let dataForTable = [];
 let num = "";
 let editId = "";
@@ -63,42 +61,26 @@ const buildTable = (data) => {
 window.onload = function () {
     fetch(url)
         .then((data) => {
-            console.log(data);
             return data.json();
-            
         })
         .then((objectData) => {
-            // console.log(objectData);
-            editId = 1;
-            // onload first row show  in edit details
-            if(objectData.length>0){
-              
-               buildTable(objectData);
-               console.log("objectData", objectData);
-            }if(objectData.length==0){
-                console.log("objectData",error);
-
-            }
-            
-            // let showdata=objectData.find((item,i)=>i==0)
-           
-
-             
-            // arrayFromApi = objectData;
             dataForTable = objectData;
-           
-            let dataForEdit = dataForTable.find((item, i) => i == 0);
+            let Edit = dataForTable.find((item, i) => i == 0);
+            if (Edit) {
+                editId = 1;
+                // onload first row show  in edit details
 
-            iName.value = dataForEdit.name;
+                buildTable(dataForTable);
 
-            iEmail.value = dataForEdit.email;
+                iName.value = Edit.name;
 
-            textarea.value = dataForEdit.address.city;
-        }).catch(function(error){
-            console.log(error);
-        })
-        
-        
+                iEmail.value = Edit.email;
+
+                textarea.value = Edit.address.city;
+            } else {
+                alert("Data not a found");
+            }
+        });
 };
 
 // open modal NEW
@@ -115,8 +97,9 @@ function closePopup() {
 
 // updata data
 function Save() {
-    const validInput = AddvalidateName() && AddvalidateEmail() && AddvalidateAddress();
-   
+    const validInput =
+        AddvalidateName() && AddvalidateEmail() && AddvalidateAddress();
+
     SaveData.disabled = true;
     if (validInput) {
         modal.classList.remove("openModal");
@@ -137,20 +120,18 @@ function Save() {
                     email: Email.value,
                     address: { city: textArea.value },
                 });
-                
+
                 let editText = dataForTable.find((item, i) => i == 0);
-                if(editText){
-                    editId=editText.id;
+                if (editText) {
+                    editId = editText.id;
                 }
-                console.log("dataForTable",dataForTable);
+
                 buildTable(dataForTable);
 
-               
+                AddFieldClear();
 
-                AddFieldClear()
-               
                 let editDataSet = dataForTable.find((item, i) => i == 0);
-             
+
                 // create  value add id Edit details
                 iName.value = editDataSet.name;
 
@@ -189,11 +170,10 @@ function deletConfirm() {
     dltPupup.classList.remove("Modal1");
 
     dataForTable = newValue;
-    // arrayFromApi = newValue;
     let onEditSelect = newValue.find((item, i) => {
         return i == 0;
     });
-    console.log("onEditSelect", onEditSelect);
+
     if (onEditSelect) {
         iName.value = onEditSelect.name;
 
@@ -240,13 +220,11 @@ function updateValue() {
         EditvalidAddress("textarea");
     if (Input) {
         const foundObj = dataForTable.find((item, i) => item.id == editId);
-        console.log("foundObj", foundObj);
 
         foundObj.name = document.getElementById("iName").value;
         foundObj.email = document.getElementById("iEmail").value;
         foundObj.address.city = document.getElementById("textarea").value;
-        
-        // console.log("arrayFromApi", arrayFromApi);
+
         buildTable(dataForTable);
     } else {
         updateEr.innerHTML = "All fields are required...";
@@ -429,7 +407,7 @@ function SaveDataClear() {
     AddressErr.innerHTML = "";
     submitErr.innerHTML = "";
 }
-function AddFieldClear(){
+function AddFieldClear() {
     UserName.value = "";
     Email.value = "";
     textArea.value = "";

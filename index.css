@@ -42,14 +42,17 @@ th {
     font-size: 14px;
     cursor: pointer;
     color: green;
+    border-color:brown;
 }
 .DeleteBtn {
+    
     height: 27px;
     width: 60px;
     border: 1px solid black;
     font-size: 14px;
     cursor: pointer;
     color: red;
+    border-color:blue;
 }
 
 /*model box  */
@@ -216,6 +219,7 @@ i {
     left: 65%;
 }
 .Update {
+    border-color:blue;
     margin-left: 29px;
     margin-top: 10px;
     font-size: 16px;
@@ -223,6 +227,7 @@ i {
     color: green;
 }
 .Reset {
+    border-color: brown;
     margin-left: 5px;
     font-size: 16px;
     cursor: pointer;
